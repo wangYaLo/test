@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const arr = [{
+        id: 2,
+        name: '部门B',
+        parentId: 0
+    },
+        {
+            id: 3,
+            name: '部门C',
+            parentId: 1
+        },
+        {
+            id: 1,
+            name: '部门A',
+            parentId: 2
+        },
+        {
+            id: 4,
+            name: '部门D',
+            parentId: 1
+        },
+        {
+            id: 5,
+            name: '部门E',
+            parentId: 2
+        },
+        {
+            id: 6,
+            name: '部门F',
+            parentId: 3
+        },
+        {
+            id: 7,
+            name: '部门G',
+            parentId: 2
+        },
+        {
+            id: 8,
+            name: '部门H',
+            parentId: 4
+        }
+    ]
+
+    let cacheArr = [];
+    let idObj = arr.reduce((pre, cur) => {
+        pre[cur.id] = cur;
+        return pre;
+    }, {})
+    arr.forEach(item => {
+        if (idObj[item.parentId]) {
+            if (idObj[item.parentId]?.children?.length) {
+                idObj[item.parentId].children.push(idObj[item.id]);
+            } else {
+                idObj[item.parentId].children = [idObj[item.id]]
+            }
+        } else {
+            cacheArr.push(idObj[item.id])
+        }
+    })
+    console.warn(cacheArr)
+</script>
+</html>

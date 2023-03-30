@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    // let one = 'ababac';
+    // let two = 'aaabbbcceefff'
+    // function xxxx(one) {
+    //     one.split('').reduce((pre, cur, index) => {
+    //         pre[cur] ? pre[cur]++ : pre[cur] = 1;
+    //         if (index !== one.length - 1) return pre;
+    //         return Object.keys(pre).filter(key => pre[key] === Math.min(...Object.values(pre)));
+    //     }, {}).forEach(item => one = one.replaceAll(item, ''))
+    //     return one;
+    // }
+    // console.warn(xxxx(two))
+    // let unit = ['', '十', '百', '千', '万', '亿']
+
+    let str = 'abcdecfgh'
+    // function getStrNum(str) {
+    //     return str.split('').reduce((pre, cur) => {
+    //         if (pre.curStr.includes(cur)) {
+    //             pre.strLength = Math.max(pre.curStr.length, pre.strLength);
+    //             pre.curStr = '';
+    //         }
+    //         pre.curStr += cur;
+    //         return pre;
+    //     }, {
+    //         curStr: '',
+    //         strLength: 0
+    //     }).strLength;
+    // }
+    // let length = Math.max(getStrNum(str), getStrNum(str.split('').reverse().join('')))
+
+
+        
+    // let lengthOfLongestSubstring = (s) => {
+    //     return s.split('').reduce((pre, cur) => {
+    //         while (pre.includes(cur)) {
+    //             pre.shift();
+    //         }
+    //         pre.push(cur);
+    //         pre.max = Math.max(pre.length, pre.max);
+    //         return pre;
+    //     }, []).max
+    // }
+    // console.warn(lengthOfLongestSubstring(str))
+
+
+// console.warn(MyTestableClass.isTestable) // true
+let obj = {
+    num: 123,
+    func: function () {
+        console.warn(123)
+    },
+    obj2: {
+        func1: function () {
+            console.warn(123)
+        }
+    }
+}
+
+function clone(obj, cloneObj = {}) {
+    for (let [key, value] of Object.entries(obj)) {
+        if (typeof value === 'function') {
+            cloneObj[key] = value;
+        } else {
+            console.warn(Object.prototype.toString.call(value))
+        }
+    }
+}
+
+clone(obj)
+</script>
+</html>

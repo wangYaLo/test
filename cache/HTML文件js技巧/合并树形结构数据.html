@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合并树形结构</title>
+</head>
+
+<body>
+    <div>
+        <svg>
+            <text x="0" y="14">欢迎各位往里面拉屎</text>
+        </svg>
+    </div>
+</body>
+<script>
+    // let objData = [
+    //     {
+    //         "id": "e0c70752781e4b82948c5cec2ad24d1d",
+    //         "key": "173B22DDA0145B7DE055000000000001",
+    //         "value": "昆明局",
+    //         "parentKey": "173B22DDA0135B7DE055000000000001",
+    //         "parentValue": "云南电网有限责任公司",
+    //         "type": "3",
+    //         "index": "0",
+    //         "children": [
+    //             {
+    //                 "id": "917973fb6037425eaa79fef7c8750ef4",
+    //                 "key": "173B22DDA01C5B7DE055000000000001",
+    //                 "value": "富民供电局",
+    //                 "parentKey": "173B22DDA0145B7DE055000000000001",
+    //                 "parentValue": "昆明局",
+    //                 "type": "4",
+    //                 "index": "0,0",
+    //                 "children": [
+    //                     {
+    //                         "id": "f76231d370f448afa4c870fb5ad57197",
+    //                         "key": "5636b8503a7d47fda82b7252d333575d",
+    //                         "value": "城区供电所",
+    //                         "parentKey": "173B22DDA01C5B7DE055000000000001",
+    //                         "parentValue": "富民供电局",
+    //                         "type": "5",
+    //                         "index": "0,0,0",
+    //                         "children": [
+    //                             {
+    //                                 "id": "4285e4c3a7104e0e8ccaf7ef06081c2b",
+    //                                 "key": "c8af007e7af046888d6711e2a7d6b2bb",
+    //                                 "value": "配电运维抢修班",
+    //                                 "parentKey": "5636b8503a7d47fda82b7252d333575d",
+    //                                 "parentValue": "城区供电所",
+    //                                 "type": "6",
+    //                                 "index": "0,0,0,0",
+    //                                 "children": []
+    //                             }
+    //                         ]
+    //                     },
+    //                     {
+    //                         "id": "863c6db224eb4e38b441a60bbb81357b",
+    //                         "key": "17734F60571935AAE055000000000001",
+    //                         "value": "者北供电所",
+    //                         "parentKey": "173B22DDA01C5B7DE055000000000001",
+    //                         "parentValue": "富民供电局",
+    //                         "type": "5",
+    //                         "index": "0,0,1",
+    //                         "children": [
+    //                             {
+    //                                 "id": "2333d633cd694a63bdaf6a597445837e",
+    //                                 "key": "17734F60571B35AAE055000000000001",
+    //                                 "value": "配营班",
+    //                                 "parentKey": "17734F60571935AAE055000000000001",
+    //                                 "parentValue": "者北供电所",
+    //                                 "type": "6",
+    //                                 "index": "0,0,1,0",
+    //                                 "children": []
+    //                             }
+    //                         ]
+    //                     },
+    //                     {
+    //                         "id": "b0594c268b7d46babeff998f7fac7a1a",
+    //                         "key": "17734F60571C35AAE055000000000001",
+    //                         "value": "赤鹫供电所",
+    //                         "parentKey": "173B22DDA01C5B7DE055000000000001",
+    //                         "parentValue": "富民供电局",
+    //                         "type": "5",
+    //                         "index": "0,0,2",
+    //                         "children": [
+    //                             {
+    //                                 "id": "ccc457a75eb341ffac57b74985f972bf",
+    //                                 "key": "17734F60571E35AAE055000000000001",
+    //                                 "value": "配营班",
+    //                                 "parentKey": "17734F60571C35AAE055000000000001",
+    //                                 "parentValue": "赤鹫供电所",
+    //                                 "type": "6",
+    //                                 "index": "0,0,2,0",
+    //                                 "children": []
+    //                             }
+    //                         ]
+    //                     },
+    //                     {
+    //                         "id": "4abc0881820344fd93cb1d10a261ae0c",
+    //                         "key": "17734F60572235AAE055000000000001",
+    //                         "value": "款庄供电所",
+    //                         "parentKey": "173B22DDA01C5B7DE055000000000001",
+    //                         "parentValue": "富民供电局",
+    //                         "type": "5",
+    //                         "index": "0,0,3",
+    //                         "children": [
+    //                             {
+    //                                 "id": "754d501bf3594394af603af1f647a8eb",
+    //                                 "key": "17734F60572435AAE055000000000001",
+    //                                 "value": "配电运维抢修班",
+    //                                 "parentKey": "17734F60572235AAE055000000000001",
+    //                                 "parentValue": "款庄供电所",
+    //                                 "type": "6",
+    //                                 "index": "0,0,3,0",
+    //                                 "children": []
+    //                             }
+    //                         ]
+    //                     },
+    //                     {
+    //                         "id": "624054cc383b4a0b8925f16e56943519",
+    //                         "key": "17734F60571F35AAE055000000000001",
+    //                         "value": "散旦供电所",
+    //                         "parentKey": "173B22DDA01C5B7DE055000000000001",
+    //                         "parentValue": "富民供电局",
+    //                         "type": "5",
+    //                         "index": "0,0,4",
+    //                         "children": [
+    //                             {
+    //                                 "id": "6cb5a93a45bc43409a512a26acba9305",
+    //                                 "key": "17734F60572135AAE055000000000001",
+    //                                 "value": "配营班",
+    //                                 "parentKey": "17734F60571F35AAE055000000000001",
+    //                                 "parentValue": "散旦供电所",
+    //                                 "type": "6",
+    //                                 "index": "0,0,4,0",
+    //                                 "children": []
+    //                             }
+    //                         ]
+    //                     }
+    //                 ]
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         "id": "e0c70752781e4b82948c5cec2ad24d1d",
+    //         "key": "173B22DDA0145B7DE055000000000001",
+    //         "value": "昆明局",
+    //         "parentKey": "173B22DDA0135B7DE055000000000001",
+    //         "parentValue": "云南电网有限责任公司",
+    //         "type": "3",
+    //         "index": "0",
+    //         "children": [
+    //             {
+    //                 "id": "3a41be0d29de40b192e58eba3a014f48",
+    //                 "key": "17734F604E6D35AAE055000000000001",
+    //                 "value": "五华供电局",
+    //                 "parentKey": "173B22DDA0145B7DE055000000000001",
+    //                 "parentValue": "昆明局",
+    //                 "type": "4",
+    //                 "index": "0,0",
+    //                 "children": [
+    //                     {
+    //                         "id": "zhhywuhua1",
+    //                         "key": "zhhywuhua1",
+    //                         "value": "五华局沙朗供电所",
+    //                         "parentKey": "17734F604E6D35AAE055000000000001",
+    //                         "parentValue": "五华供电局",
+    //                         "type": "5",
+    //                         "index": "0,0,0",
+    //                         "children": ""
+    //                     },
+    //                     {
+    //                         "id": "24cfaf9e9ce4450a9b7574e48d0f4b25",
+    //                         "key": "54654564132165432165465",
+    //                         "value": "普吉供电所",
+    //                         "parentKey": "17734F604E6D35AAE055000000000001",
+    //                         "parentValue": "五华供电局",
+    //                         "type": "5",
+    //                         "index": "0,0,1",
+    //                         "children": ""
+    //                     },
+    //                     {
+    //                         "id": "94c1c504ec8c4531b818095c223db672",
+    //                         "key": "c194e09481974d7b9b57d33317b3a082",
+    //                         "value": "配电运维三班",
+    //                         "parentKey": "17734F604E6D35AAE055000000000001",
+    //                         "parentValue": "五华供电局",
+    //                         "type": "5",
+    //                         "index": "0,0,2",
+    //                         "children": ""
+    //                     },
+    //                     {
+    //                         "id": "4056ccf9801a4697ae9e7b615c691581",
+    //                         "key": "17734F604EC635AAE055000000000001",
+    //                         "value": "配电抢修班",
+    //                         "parentKey": "17734F604E6D35AAE055000000000001",
+    //                         "parentValue": "五华供电局",
+    //                         "type": "5",
+    //                         "index": "0,0,3",
+    //                         "children": []
+    //                     },
+    //                     {
+    //                         "id": "7f671afd22bf413496740b4525eba602",
+    //                         "key": "44f4a053d3144f9c934f562fc0e6831d",
+    //                         "value": "配电运维一班",
+    //                         "parentKey": "17734F604E6D35AAE055000000000001",
+    //                         "parentValue": "五华供电局",
+    //                         "type": "5",
+    //                         "index": "0,0,4",
+    //                         "children": ""
+    //                     },
+    //                     {
+    //                         "id": "79c9b7c6768b4f7da917cc21280b4f9b",
+    //                         "key": "a87e807760c146b8b58538254d2a7efd",
+    //                         "value": "配电运维二班",
+    //                         "parentKey": "17734F604E6D35AAE055000000000001",
+    //                         "parentValue": "五华供电局",
+    //                         "type": "5",
+    //                         "index": "0,0,5",
+    //                         "children": ""
+    //                     }
+    //                 ]
+    //             }
+    //         ]
+    //     }
+    // ]
+
+    
+    let objData = [
+        {
+            key: '1',
+            children: [
+                {
+                    key: '11',
+                    children: [
+                        {
+                            key: '111'
+                        },
+                        {
+                            key: '112',
+                            children: [
+                                {
+                                    key: '1111'
+                                },
+                                {
+                                    key: '1112'
+                                },
+                                {
+                                    key: '1113'
+                                },
+                                {
+                                    key: '1115',
+                                    children: [
+                                        {
+                                            key: '1111'
+                                        },
+                                        {
+                                            key: '1112'
+                                        },
+                                        {
+                                            key: '1113'
+                                        },
+                                        {
+                                            key: '1115'
+                                        },
+                                    ]
+                                },
+                            ]
+                        },
+                        {
+                            key: '113'
+                        },
+                    ]
+                }
+            ]
+        },
+        {
+            key: '1',
+            children: [
+                {
+                    key: '11',
+                    children: [
+                        {
+                            key: '113',
+                            children: [
+                                {
+                                    key: '1111'
+                                },
+                                {
+                                    key: '1112'
+                                },
+                                {
+                                    key: '1113'
+                                },
+                                {
+                                    key: '1114'
+                                },
+                            ]
+                        }
+                    ]
+                },
+                {
+                    key: '12'
+                },
+            ]
+        },
+        {
+            key: '2',
+            children: [
+                {
+                    key: '11',
+                    children: [
+                        {
+                            key: '113',
+                            children: [
+                                {
+                                    key: '1111'
+                                },
+                                {
+                                    key: '1112'
+                                },
+                                {
+                                    key: '1113'
+                                },
+                                {
+                                    key: '1114'
+                                },
+                            ]
+                        }
+                    ]
+                },
+                {
+                    key: '12'
+                },
+            ]
+        }
+    ]
+    /**
+     * @author YaLo
+     */
+    function arrayToMap(arr, map = new Map()) {
+        if (arr && arr.length) {
+            for (const item of arr) {
+                if (map.get(item.key)) {
+                    arrayToMap(item.children, map.get(item.key).children)
+                } else {
+                    if (item.children && item.children.length) {
+                        item.children = arrayToMap(item.children);
+                    }
+                    map.set(item.key, item);
+                }
+            }
+        }
+        return map
+    }
+    function mapToArray(mapTarget) {
+        let arr = [];
+        for (const [key, value] of mapTarget) {
+            if (value.children) {
+                value.children = mapToArray(value.children)
+            }
+            arr.push(value);
+        }
+        return arr;
+    }
+    let mp1 = mapToArray(arrayToMap(objData))
+
+    /**
+     * @author raccon
+     */
+     const types = (val) => ({}.toString.call(val))
+    const filterObj = (arr) => {
+
+        const concat = (obj1, obj2) => {
+            // 如果为对象则取key，然后children数组进行合并
+            if(types(obj1) === '[object Object]' && types(obj2) === '[object Object]'){
+                const {children: child1} = obj1
+                const {children: child2} = obj2
+                const concatObj = {key: obj1?.key ?? obj2?.key}
+                if(child1 && child2)  concatObj.children = concat(child1, child2)
+                return concatObj
+            }
+            // 如果为数组，则递归调用
+            if(types(obj1) === '[object Array]' && types(obj2) === '[object Array]'){
+                return filterObj([...obj1, ...obj2])
+            }
+        }
+
+        return arr.reduce((res, item) => {
+            // 判断有无同key的对象， 相同key的调用concat合并对象， 不同存储到数组里进行输出
+            const { key, children } = item;
+            var sameObjIndex = res.findIndex(({ key: resKey }) => resKey === key)
+            ~sameObjIndex ? res[sameObjIndex] = concat(item, res[sameObjIndex]) : res.push(item);
+            return res
+        }, [])
+    }
+    console.log(filterObj(objData))
+
+    /**
+     * @author 吴大牛
+     */
+    function loop(arr) {
+        for (let i = 0; i < arr.length - 1; i++) {
+            arr.forEach((item, index) => {
+                if (item.key === arr[i].key && index !== i) {
+                    if (!item.children) {
+                        item.children = []
+                    }
+                    if (!arr[i].children) {
+                        arr[i].children = []
+                    }
+                    item.children = item.children.concat(arr[i].children)
+                    arr.splice(i, 1)
+                }
+            })
+        }
+        arr.forEach(item => {
+            if (item.children) {
+                if (item.children.length > 0) {
+                    loop(item.children)
+                }
+            }
+        })
+        console.warn(performance.now())
+    }
+    loop(objData) 
+
+console.warn(mp1)
+console.warn(objData)
+</script>
+</html>
